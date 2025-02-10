@@ -23,7 +23,7 @@ export async function createSubscription() {
   }
 
   const email = user?.primaryEmailAddress?.emailAddress
-  
+
   if (!databaseUser.stripeCustomerId) {
     const customer = await stripe.customers.create({
       email: email
@@ -42,8 +42,8 @@ export async function createSubscription() {
 
   const subscriptionUrl = await getStripeSession({
     customerId: databaseUser.stripeCustomerId,
-    domainUrl: process.env.NODE_ENV === 'production' 
-      ? (process.env.PRODUCTION_URL as string) 
+    domainUrl: process.env.NODE_ENV === 'production'
+      ? (process.env.PRODUCTION_URL as string)
       : 'http://localhost:3000',
     priceId: process.env.STRIPE_YEARLY_PRICE_ID as string
   })
